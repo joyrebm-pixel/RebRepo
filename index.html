@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b1420" />
+    <meta name="description" content="Virus Scanner demo dashboard for safe, clear file scanning workflows." />
+    <title>Virus Scanner — Security dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M24 4 39 10v12c0 10.5-6.2 17.9-15 22-8.8-4.1-15-11.5-15-22V10L24 4Z" stroke="currentColor" stroke-width="2.6"/><path d="m16.5 24 4.8 4.7L32 18" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div><strong>virus<span>scanner</span></strong><small>security console</small></div>
+        </div>
+
+        <nav class="nav-stack">
+          <p class="nav-label">Workspace</p>
+          <a class="nav-item active" href="#overview" aria-current="page"><span class="nav-icon">⌂</span> Overview</a>
+          <a class="nav-item" href="#scan"><span class="nav-icon">⌁</span> Scan a file <span class="nav-badge">1</span></a>
+          <a class="nav-item" href="#history"><span class="nav-icon">◷</span> Scan history</a>
+          <a class="nav-item" href="#guidance"><span class="nav-icon">⌖</span> Security guide</a>
+          <p class="nav-label nav-label-spaced">System</p>
+          <a class="nav-item" href="#settings"><span class="nav-icon">⚙</span> Preferences</a>
+          <a class="nav-item" href="#help"><span class="nav-icon">?</span> Help center</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="connection-state"><span class="pulse-dot"></span><span><strong id="connectionLabel">Live scanner</strong><small id="connectionDetail">Sign in to scan</small></span></div>
+          <button class="sidebar-profile" id="accountButton" type="button" aria-label="Sign in"><span class="profile-avatar" id="profileAvatar">?</span><span><strong id="profileName">Guest user</strong><small id="profileDetail">Sign in for saved history</small></span><span class="chevron">⌄</span></button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="mobile-brand"><span class="brand-mark small" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M24 4 39 10v12c0 10.5-6.2 17.9-15 22-8.8-4.1-15-11.5-15-22V10L24 4Z" stroke="currentColor" stroke-width="2.6"/><path d="m16.5 24 4.8 4.7L32 18" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><strong>virus<span>scanner</span></strong></div>
+          <div class="topbar-right"><span class="demo-pill" id="environmentPill"><span class="pulse-dot"></span> Live environment</span><button class="text-button topbar-login" id="loginButton" type="button">Sign in</button><button class="icon-button" id="notificationButton" type="button" aria-label="View recent scan activity"><span>♧</span><i></i></button><button class="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button></div>
+        </header>
+
+        <div class="content-wrap" id="overview">
+          <div class="page-heading">
+            <div><p class="eyebrow"><time id="currentDate"></time><span class="eyebrow-line"></span> Workspace overview</p><h1>Good morning<span class="heading-dot">.</span></h1><p class="page-subtitle">A calm view of what’s protected, what’s changed, and what needs your attention.</p></div>
+            <div class="heading-actions"><button class="text-button" type="button" id="refreshButton"><span class="refresh-glyph">↻</span> Refresh status</button><button class="primary-button" type="button" data-scroll-to="scan"><span>＋</span> New scan</button></div>
+          </div>
+
+          <div class="demo-disclosure" id="demoDisclosure"><span class="disclosure-icon">i</span><span><strong>Real scanning is protected.</strong> Sign in to scan with the configured antivirus and keep scan history. Demo history is illustrative until you sign in.</span><button type="button" class="disclosure-close" aria-label="Dismiss scanner notice">×</button></div>
+
+          <section class="overview-grid" aria-label="Protection overview">
+            <article class="protection-card panel">
+              <div class="panel-topline"><span class="section-kicker">Protection status</span><span class="status-chip status-chip-cyan"><span class="chip-dot"></span> Active</span></div>
+              <div class="protection-body"><div class="protection-ring" aria-hidden="true"><div class="ring-glow"></div><svg viewBox="0 0 120 120"><circle class="ring-track" cx="60" cy="60" r="48"/><circle class="ring-progress" cx="60" cy="60" r="48"/><path d="M60 30 82 39v18c0 15-9.1 25.9-22 31-12.9-5.1-22-16-22-31V39l22-9Z"/><path d="m48 58 8 8 17-18"/></svg><span>100<small>%</small></span></div><div class="protection-copy"><h2>All systems<br /><em>looking good.</em></h2><p>Protection layer is ready for a new check. Sign in to run a connected scan and save the result.</p><button class="inline-link" type="button" data-scroll-to="scan">Run a new scan <span>→</span></button></div></div>
+              <div class="card-footnote"><span class="mini-check">✓</span><span>Provider status ready</span><span class="footnote-divider"></span><span>Engine status <strong id="engineStatus">Sign-in required</strong></span></div>
+            </article>
+
+            <article class="quick-stat panel"><div class="panel-topline"><span class="section-kicker">Last scan</span><span class="stat-arrow">↗</span></div><div class="stat-value" id="lastScanTime">08<span>m</span></div><p class="stat-caption">ago</p><div class="stat-detail"><span class="file-type-badge">PDF</span><span><strong id="lastScanName">invoice_oct.pdf</strong><small>Clean result · 1.4 MB</small></span></div></article>
+            <article class="quick-stat panel"><div class="panel-topline"><span class="section-kicker">Files scanned</span><span class="stat-arrow">↗</span></div><div class="stat-value" id="filesScanned">24<span> files</span></div><p class="stat-caption">this month</p><div class="stat-detail stat-detail-simple"><span class="trend-up">↗</span><span><strong>+18% vs. last month</strong><small>Keep your checks regular</small></span></div></article>
+          </section>
+
+          <section class="workspace-grid" id="scan" aria-label="Scan workspace">
+            <article class="scan-panel panel">
+              <div class="panel-header"><div><span class="section-kicker">Scan a file</span><h2>Check before you open.</h2></div><span class="live-label"><span class="live-dot"></span> Live provider</span></div>
+              <p class="panel-intro">Drop a file here or choose one from your device. Signed-in scans use the configured antivirus and are saved to your account history.</p>
+              <div class="auth-required" id="authRequired"><span class="auth-required-icon">⌁</span><span><strong>Sign in to run a real scan.</strong><small>Your file and results stay tied to your private workspace.</small></span><button class="inline-link" id="loginButtonInline" type="button">Sign in <span>→</span></button></div>
+              <div class="demo-disclosure" id="scanProviderNotice" role="status" hidden><span class="disclosure-icon">i</span><span><strong>No real scanner is available.</strong> Add a VirusTotal API key to <code>.env</code> or use Windows with Microsoft Defender enabled.</span></div>
+              <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose a file to scan">
+                <input id="fileInput" type="file" hidden />
+                <div class="upload-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 21V6m0 0-5 5m5-5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 17v5.5A3.5 3.5 0 0 0 10.5 26h11a3.5 3.5 0 0 0 3.5-3.5V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+                <div class="dropzone-copy"><strong>Drop a file to scan</strong><span>or <u>browse your device</u></span></div><small>Any file type · max 25 MB</small>
+              </div>
+              <div class="selected-file" id="selectedFile" hidden><span class="file-type-badge" id="selectedFileType">FILE</span><span class="selected-file-copy"><strong id="selectedFileName">No file selected</strong><small id="selectedFileMeta">Ready to scan</small></span><button type="button" class="remove-file" id="removeFile" aria-label="Remove selected file">×</button></div>
+              <div class="scan-controls"><button class="primary-button scan-button" id="scanButton" type="button" disabled><span class="scan-button-icon">⌁</span> <span id="scanButtonText">Choose a file</span></button><button class="cancel-button" type="button" id="cancelButton" hidden>Cancel</button></div>
+              <div class="scan-progress" id="scanProgress" hidden><div class="progress-meta"><span id="progressLabel">Preparing demo scan</span><strong id="progressPercent">0%</strong></div><div class="progress-track"><span id="progressBar"></span></div><p id="progressDetail">Loading the simulated engine…</p></div>
+              <div class="result-banner" id="resultBanner" hidden><div class="result-symbol" id="resultSymbol">✓</div><div><strong id="resultTitle">Demo result</strong><p id="resultText">Result details will appear here.</p></div><button type="button" class="result-close" id="resultClose" aria-label="Dismiss scan result">×</button></div>
+            </article>
+
+            <aside class="summary-column">
+              <article class="summary-card panel"><div class="panel-header compact"><div><span class="section-kicker">Threat summary</span><h2>Signal overview</h2></div><span class="summary-period">This month <span>⌄</span></span></div><div class="threat-total"><strong id="totalScans">24</strong><span>demo checks<br />completed</span></div><div class="severity-list"><div class="severity-row"><span class="severity-name"><i class="severity-dot clean"></i>Clean</span><strong id="cleanCount">22</strong><div class="severity-bar"><span class="clean-bar" id="cleanBar"></span></div></div><div class="severity-row"><span class="severity-name"><i class="severity-dot warning"></i>Suspicious</span><strong id="warningCount">2</strong><div class="severity-bar"><span class="warning-bar" id="warningBar"></span></div></div><div class="severity-row"><span class="severity-name"><i class="severity-dot threat"></i>Threat demo</span><strong id="threatCount">0</strong><div class="severity-bar"><span class="threat-bar" id="threatBar"></span></div></div></div><p class="summary-note"><span>i</span> Demo outcomes are illustrative and not a security verdict.</p></article>
+              <article class="tip-card panel" id="guidance"><div class="tip-tag"><span class="tip-spark">✦</span> Security guide</div><h2 id="guidanceTitle">A small habit<br /><em>goes a long way.</em></h2><p id="guidanceText">Scan files you weren’t expecting before opening them, especially attachments from unknown senders.</p><div class="tip-rule"></div><button class="inline-link" type="button" id="nextTip">Next tip <span>→</span></button></article>
+            </aside>
+          </section>
+
+          <section class="history-section" id="history"><div class="section-heading-row"><div><span class="section-kicker">Recent activity</span><h2>Scan history</h2></div><button class="text-button" type="button" id="viewAllButton">View all <span>→</span></button></div><div class="history-table panel"><div class="history-head"><span>File</span><span>Scanned</span><span>Result</span><span>Size</span><span></span></div><div id="historyRows"></div></div></section>
+          <section class="history-section" id="settings"><div class="section-heading-row"><div><span class="section-kicker">Workspace</span><h2>Preferences</h2></div></div><div class="settings-card panel"><p class="panel-intro">Choose whether to receive email alerts about your scans. Sign in to save this preference to your account.</p><button class="alert-toggle" id="alertsToggle" type="button" aria-pressed="false"><span class="toggle-dot"></span> Sign in to manage email alerts</button></div></section>
+          <section class="history-section" id="help"><div class="section-heading-row"><div><span class="section-kicker">Support</span><h2>Help center</h2></div></div><div class="help-card panel"><p class="panel-intro">Choose a file up to 25 MB to scan. Real scans require an account and use Microsoft Defender on Windows or VirusTotal when configured.</p><button class="inline-link" type="button" data-scroll-to="scan">Go to file scanning <span>→</span></button></div></section>
+          <footer class="page-footer"><span>Virus Scanner <b>·</b> demo console</span><span>Privacy-first by design <b>·</b> <a href="#help">Need help?</a></span></footer>
+        </div>
+      </main>
+    </div>
+    <dialog class="login-dialog" id="loginDialog" aria-labelledby="loginDialogTitle">
+      <div class="login-dialog-content">
+        <button class="login-dialog-close" id="authDialogClose" type="button" aria-label="Close sign-in form">×</button>
+        <span class="section-kicker">Account access</span>
+        <h2 id="loginDialogTitle">Welcome back</h2>
+        <p id="loginDialogMessage" class="auth-error" role="alert" hidden></p>
+        <form id="authForm">
+          <input id="authMode" type="hidden" value="login" />
+          <label id="authNameField" class="auth-field" hidden>
+            <span>Your name</span>
+            <input id="authName" name="name" type="text" autocomplete="name" minlength="2" maxlength="80" />
+          </label>
+          <label class="auth-field">
+            <span>Email address</span>
+            <input id="authEmail" name="email" type="email" autocomplete="email" maxlength="254" required />
+          </label>
+          <label class="auth-field">
+            <span>Password</span>
+            <input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="128" required />
+          </label>
+          <p class="login-dialog-help">Use at least 8 characters for your password.</p>
+          <button class="primary-button auth-submit" id="authSubmitButton" type="submit">Sign in</button>
+        </form>
+        <div class="login-dialog-actions">
+          <span id="authModePrompt">New here?</span>
+          <button class="text-button" id="authModeToggle" type="button">Create an account</button>
+        </div>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

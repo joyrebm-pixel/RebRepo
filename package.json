@@ -1,0 +1,14 @@
+{
+  "name": "virus-scanner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node reb.js",
+    "build": "node -e \"console.log('Static build: public/ is ready')\""
+  },
+  "dependencies": {
+    "busboy": "^1.6.0",
+    "mysql2": "^3.24.5"
+  }
+}
